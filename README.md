@@ -97,8 +97,8 @@ Enum that represents all the possible items. It's provided by ``lib.board.Item``
 
 ### CellState
 CellState represents the perceived state of a given cell of the board. It's provided by ``lib.board.CellState`` and can either be:
-- COVERED: Cell has been dug up and its contents are known.
-- UNCOVERED: Cell hasn't been dug up and its contents are unknown.
+- COVERED: Cell hasn't been dug up and its contents are unknown.
+- UNCOVERED: Cell has been dug up and its contents are known.
 
 ### Exceptions
 
