@@ -1,7 +1,7 @@
 from random import sample
 from enum import IntEnum
 
-class Items(IntEnum):
+class Item(IntEnum):
     BLANK = -1
     BOMB = 0
     RUPOOR = -20
@@ -11,24 +11,23 @@ class Items(IntEnum):
     SILVER = 100
     GOLDEN = 300
 
-item_danger = [ Items.GREEN, Items.BLUE, Items.BLUE, Items.RED, Items.RED,
-                Items.SILVER, Items.SILVER, Items.GOLDEN, Items.GOLDEN ]
+item_danger = [ Item.GREEN, Item.BLUE, Item.BLUE, Item.RED, Item.RED,
+                Item.SILVER, Item.SILVER, Item.GOLDEN, Item.GOLDEN ]
 
 item_code = {
-    Items.BLANK : " ",
-    Items.GREEN : "G",
-    Items.BLUE : "B",
-    Items.RED : "R",
-    Items.SILVER : "S",
-    Items.GOLDEN : "*",
-    Items.BOMB : "X",
-    Items.RUPOOR : "-"
+    Item.BLANK : " ",
+    Item.GREEN : "G",
+    Item.BLUE : "B",
+    Item.RED : "R",
+    Item.SILVER : "S",
+    Item.GOLDEN : "*",
+    Item.BOMB : "X",
+    Item.RUPOOR : "-"
 }
 
 class CellState(IntEnum):
     COVERED = 0
     UNCOVERED = 1
-    FLAGGED = 2
 
 class Board():
     __board = []
@@ -51,14 +50,14 @@ class Board():
         rupoors_coordinates = sample(remaining_coordinates, self.__rupoors)
 
         self.__playboard = [[CellState.COVERED for i in range(0,self.__width)] for j in range(0,self.__height)]
-        self.__board = [[Items.BLANK for i in range(0,self.__width)] for j in range(0,self.__height)]
+        self.__board = [[Item.BLANK for i in range(0,self.__width)] for j in range(0,self.__height)]
 
         for bomb in bombs_coordinates:
             x,y = bomb
-            self.__board[x][y] = Items.BOMB
+            self.__board[x][y] = Item.BOMB
         for rupoor in rupoors_coordinates:
             x,y = rupoor
-            self.__board[x][y] = Items.RUPOOR
+            self.__board[x][y] = Item.RUPOOR
 
         for x,row in enumerate(self.__board):
             for y,cell in enumerate(row):
@@ -68,9 +67,9 @@ class Board():
                     nx, ny = n
                     if 0 <= nx <= self.__height-1 and 0 <= ny <= self.__width-1:
                         item = self.__board[nx][ny]
-                        if item == Items.BOMB or item == Items.RUPOOR:
+                        if item == Item.BOMB or item == Item.RUPOOR:
                             hazard +=1
-                if cell != Items.BOMB and cell != Items.RUPOOR:
+                if cell != Item.BOMB and cell != Item.RUPOOR:
                     self.__board[x][y] = item_danger[hazard]
 
     def dig(self,x,y):
@@ -82,7 +81,7 @@ class Board():
         return self.__playboard[x][y]
     
     def get_board(self):
-        board = [[(CellState.COVERED, Items.BLANK) for i in range(0,self.__width)] for j in range(0,self.__height)]
+        board = [[(CellState.COVERED, Item.BLANK) for i in range(0,self.__width)] for j in range(0,self.__height)]
         for x,row in enumerate(self.__playboard):
             for y,cell in enumerate(row):
                 if cell == CellState.UNCOVERED:

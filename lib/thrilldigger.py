@@ -1,6 +1,6 @@
 from enum import IntEnum
 from lib.exceptions import *
-from lib.board import Board, Items
+from lib.board import Board, Item
 from lib.difficulties import Difficulty, DifficultyConfig
 
 class PlayState(IntEnum):
@@ -46,8 +46,9 @@ class ThrillDigger:
         if (self.__state != PlayState.MAKE_MOVE):
             raise GameIsOverException("Game already finished")
         item = self.__board.dig(x,y)
-        self.__dug_up += 1
-        if item == Items.BOMB:
+        if item != Item.RUPOOR or item != Item.RUPOOR:
+            self.__dug_up += 1
+        if item == Item.BOMB:
             self.__state = PlayState.FAILED
         else:
             self.__score = max(0, self.__score + int(item))
