@@ -5,7 +5,7 @@ from lib.difficulties import Difficulty
 Instances a digger and runs it once. Just that.
 '''
 
-digger = RandomDigger(Difficulty.BEGINNER)
+digger = RandomDigger(Difficulty.EXPERT)
 victory = digger.play()
 
 if victory:
