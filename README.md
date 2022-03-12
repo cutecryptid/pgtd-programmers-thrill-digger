@@ -23,7 +23,7 @@ Each type of rupee adds a different value to our score and hints us about the co
 ## Programming a Digger
 
 The game is implemented through the ThrillDigger class that uses a Board class to build and keep track of the game board and game state.
-The user is tasked with implementing the ``execute_play_strategy()`` method by inheriting the ThrillDigger class. A sample digger is provided in ``strats/simpledigger.py``. By instancing the new digger and calling the ```play()`` method, the game will execute the strategy and check if the game has concluded afterwards. Users can collect data from the digger such as the score the board state or the game state in any moment, even when the game has concluded.
+The user is tasked with implementing the ``execute_play_strategy()`` method by inheriting the ThrillDigger class. A sample digger is provided in ``strats/simpledigger.py``. By instancing the new digger and calling the ``play()`` method, the game will execute the strategy and check if the game has concluded afterwards. Users can collect data from the digger such as the score the board state or the game state in any moment, even when the game has concluded.
 
 The simple provided script ``roi_digger.py`` uses an arbitrary custom digger to calculate the average Return on Investment of said digger and showcases how a digger can be called and used after defining its ``execute_play_strategy()`` method.
 
