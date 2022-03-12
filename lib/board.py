@@ -73,6 +73,8 @@ class Board():
                     self.__board[x][y] = item_danger[hazard]
 
     def dig(self,x,y):
+        if x >= self.__height or y >= self.__width or x < 0 or y < 0:
+            raise IndexError("Cell is out of bounds. Can't dig there")
         item = self.__board[x][y]
         self.__playboard[x][y] = CellState.UNCOVERED
         return item
