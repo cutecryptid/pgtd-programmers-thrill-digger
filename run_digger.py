@@ -1,5 +1,5 @@
 from strats.randomstrategy import RandomDigger
-from lib.difficulties import Difficulty
+from src.pgtd.difficulties import Difficulty
 
 '''
 Instances a digger and runs it once. Just that.
