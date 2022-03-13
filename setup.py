@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pgtd",
-    version="1.0.2",
+    version="1.0.5",
     author="trigork",
     author_email="r.martin1@udc.es",
     description="pgtd : programmer's thrill digger",
