@@ -4,6 +4,9 @@ PGTD mimics the old and almost impossible to find PGMS (Programmer's Minesweeper
 
 In this case we are implementing Thrill Digger, an incomplete information approach to minesweeper presented as a minigame in [The Legend of Zelda Skyward Sword](https://zelda.fandom.com/wiki/Thrill_Digger). The main difference from Thrill Digger and Minesweeper is that while in the later the goal is to clear the board without hitting any mine, in Thrill Digger the goal is to maximize the score regardless of winning or losing. There are additional rewards in the game for clearing each mode but since the information in Thrill Digger is incomplete, is even more luck dependant than the original Minesweeper.
 
+## Installation
+You can run ```pip install pgtd`` to install the module. No additional dependencies are required.
+
 ## Rules and Hints
 
 Thrill Digger presents a board in which we have to digout gemstones called rupees. In some holes there are bombs or rupoors (bad rupees) that either makes us lose the game or lose part of our score. Each difficulty mode presents a bigger board and an increaisng number of hazards.
@@ -75,8 +78,8 @@ Returns a tuple (bombs:int, rupoors:int) that indicates the initial amount of ha
 #### execute_play_strategy()
 The main method a Digger should implement by using all and any of the above methods, enumerators and properties to try and solve a Thrill Digger's game.
 
-### Difficulties
-Standard difficulties are provided through the ``lib.difficulties.Difficulty`` enumerator. These are:
+### Difficulty
+Standard difficulties are provided through the ``Difficulty`` enumerator. These are:
 
 | Difficulty | Width | Height | Bombs | Rupoors | Cost |
 |------------|-------|--------|-------|---------|------|
@@ -88,14 +91,14 @@ Standard difficulties are provided through the ``lib.difficulties.Difficulty`` e
 The default values for CUSTOM difficulty are zeroes, but they can be specified as optional parameters in the Digger's constructor. Specifying these values while using standard Difficulties will have no effect.
 
 ### PlayState
-PlayState represents the different possible states of a Thrill Digger game and are provided by the ``lib.thrilldigger.PlayState`` enumerator.
+PlayState represents the different possible states of a Thrill Digger game and are provided by the ``PlayState`` enumerator.
 - INITIAL_STATE: The gamer has just started, we can either manually dig or call play to execute the strategy
 - MAKE_MOVE: User can keep digging.
 - FAILED: Game has finished because user has dug up a bomb.
 - VICTORY: Game has finished because user has dug up every rupee without hitting any bombs.
 
 ### Item
-Enum that represents all the possible items. It's provided by ``lib.board.Item``. A caveat about this enum is that its integer values correspond with the score value of the item in the game.
+Enum that represents all the possible items. It's provided by ``Item``. A caveat about this enum is that its integer values correspond with the score value of the item in the game.
 - BLANK: Empty or Unknown Item.
 - BOMB: A bomb. Ends the game.
 - RUPOOR: A bad rupee. Substracts 20 points from the score.
@@ -106,7 +109,7 @@ Enum that represents all the possible items. It's provided by ``lib.board.Item``
 - GOLDEN: A golden rupee. Adds 300 to the score.
 
 ### CellState
-CellState represents the perceived state of a given cell of the board. It's provided by ``lib.board.CellState`` and can either be:
+CellState represents the perceived state of a given cell of the board. It's provided by ``CellState`` and can either be:
 - COVERED: Cell hasn't been dug up and its contents are unknown.
 - UNCOVERED: Cell has been dug up and its contents are known.
 
