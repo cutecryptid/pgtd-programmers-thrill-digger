@@ -1,5 +1,5 @@
-from src.pgtd.thrilldigger import ThrillDigger, PlayState
-from src.pgtd.thrilldigger import IncorrectStateError, GameIsOverError, UnfinishedGameError
+from pgtd import ThrillDigger, PlayState
+from pgtd import IncorrectStateError, GameIsOverError, UnfinishedGameError
 
 from random import randrange
 

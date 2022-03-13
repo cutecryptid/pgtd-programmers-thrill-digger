@@ -1,5 +1,5 @@
-from src.pgtd.thrilldigger import ThrillDigger
-from src.pgtd.exceptions import IncorrectStateError, GameIsOverError, UnfinishedGameError
+from pgtd import ThrillDigger
+from pgtd import IncorrectStateError, GameIsOverError, UnfinishedGameError
 '''
 Simple Strategy for thrilldigger that digs up the board sequentially.
 
