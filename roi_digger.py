@@ -1,5 +1,5 @@
 from strats.simplestrategy import SimpleDigger
-from pgtd import Difficulty
+from src.pgtd import Difficulty
 
 iterations = 10000
 difficulty = Difficulty.EXPERT
