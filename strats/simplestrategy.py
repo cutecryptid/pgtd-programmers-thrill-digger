@@ -1,5 +1,5 @@
 from lib.thrilldigger import ThrillDigger
-from lib.thrilldigger import IncorrectStateError, GameIsOverException, UnfinishedGameException
+from lib.thrilldigger import IncorrectStateError, GameIsOverError, UnfinishedGameError
 '''
 Simple Strategy for thrilldigger that digs up the board sequentially.
 
@@ -15,7 +15,7 @@ class SimpleDigger(ThrillDigger):
                 for y in range(0,width):
                     self.dig(x,y)
                     
-        except GameIsOverException as e:
+        except GameIsOverError as e:
             pass
 
 
