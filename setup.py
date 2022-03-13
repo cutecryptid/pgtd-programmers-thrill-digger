@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pgtd",
-    version="1.0.1",
+    version="1.0.2",
     author="trigork",
     author_email="r.martin1@udc.es",
-    description="A small example package",
+    description="pgtd : programmer's thrill digger",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Trigork/pgtd-programmers-thrill-digger",
