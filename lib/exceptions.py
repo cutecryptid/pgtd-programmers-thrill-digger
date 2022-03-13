@@ -1,8 +1,11 @@
 class IncorrectStateError(Exception):
     pass
 
-class GameIsOverException(IncorrectStateError):
+class GameAlreadyStartedError(IncorrectStateError):
     pass
 
-class UnfinishedGameException(IncorrectStateError):
+class GameIsOverError(IncorrectStateError):
+    pass
+
+class UnfinishedGameError(IncorrectStateError):
     pass

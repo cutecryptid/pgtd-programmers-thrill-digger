@@ -20,6 +20,12 @@ Each type of rupee adds a different value to our score and hints us about the co
 | ⬛️ | Rupoor | - | -20 | ? |
 | 💣 | Bomb | X | 0 | ? |
 
+## Playing ThrillDigger
+The ThrillDigger class can be used to manually play the game through its API (see below) or can be inherited to create a custom Digger that plays on its own automatically (see the next point).
+To play the game, the user only needs to instantiate the ThrillDigger class and call its methods, while a programatic custom Digger will implement a playing strategy by using said methods.
+
+This approach is useful is somebody wanted to implement a frontend using the library to play the game in a visual and interactive way, while the later would be more useful to programmer's tryin to run their approach in a more efficient and headless manner, without having to worry to check things such as the board state or the game state after finishing.
+
 ## Programming a Digger
 
 The game is implemented through the ThrillDigger class that uses a Board class to build and keep track of the game board and game state.
@@ -34,8 +40,11 @@ The simple provided script ``roi_digger.py`` uses an arbitrary custom digger to 
 #### ThrillDigger and Digger instances
 To instantiate the ThrillDigger class or any custom Digger that inherits from it, the only parameter needed is a Difficulty (see below)
 
+#### reset()
+Resets the board, the score and the game state. The new board will be different from the previous one.
+
 #### play()
-Executes the defined strategy and checks for the final game and board states afterwards
+Executes the defined strategy and checks for the final game and board states afterwards.
 
 #### dig(x,y)
 Digs up and returns the item at coordinate x,y. Changes board and game states accordingly. 
@@ -80,6 +89,7 @@ The default values for CUSTOM difficulty are zeroes, but they can be specified a
 
 ### PlayState
 PlayState represents the different possible states of a Thrill Digger game and are provided by the ``lib.thrilldigger.PlayState`` enumerator.
+- INITIAL_STATE: The gamer has just started, we can either manually dig or call play to execute the strategy
 - MAKE_MOVE: User can keep digging.
 - FAILED: Game has finished because user has dug up a bomb.
 - VICTORY: Game has finished because user has dug up every rupee without hitting any bombs.
@@ -105,8 +115,11 @@ CellState represents the perceived state of a given cell of the board. It's prov
 #### IncorrectStateError
 Custom Exception to notify that the action we are trying to perfom can't be executed due to the Board or Game being in an incorrect state for it
 
-#### GameIsOverException
+#### GameAlreadyStartedError
+A subclass of IncorrectStateError. Indicates that the game has started manually by digging up without calling ``play()``. A reset is needed to be able to call the play method or the user should keep manually playing to the end.
+
+#### GameIsOverError
 A subclass of IncorrectStateError. Indicates that the game is already over, either by Victory or by Defeat.
 
-#### UnfinishedGameException
+#### UnfinishedGameError
 A subclass of IncorrectStateError. Indicates that the play method has finished executing the strategy but the game can still be played. For example if the strategy consists in digging up a single tile and nothing else, in which case the game only would be in a proper end state if the arbitrary tile contained a bomb.

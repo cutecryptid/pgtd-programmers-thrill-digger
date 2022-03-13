@@ -1,23 +1,21 @@
 from enum import IntEnum
 from lib.exceptions import *
-from lib.board import Board, Item
+from lib.board import Board, Item, CellState
 from lib.difficulties import Difficulty, DifficultyConfig
 
 class PlayState(IntEnum):
-    MAKE_MOVE = 0
-    FAILED = 1
-    VICTORY = 2
+    INITIAL_STATE = 0
+    MAKE_MOVE = 1
+    FAILED = 2
+    VICTORY = 3
 
 class ThrillDigger:
     __board = None
+    __price = 0
 
     __score = 0
-    __state = PlayState.MAKE_MOVE
-
     __dug_up = 0
-    __size = 0
-    __hazards = 0
-    __price = 0
+    __state = PlayState.INITIAL_STATE
 
     def __init__(self, difficulty: Difficulty, width = 0, height = 0, bombs = 0, rupoors = 0, price = 0):
         config = DifficultyConfig[difficulty]
@@ -28,32 +26,47 @@ class ThrillDigger:
             config["rupoors"] = rupoors
             config["price"] = price
 
-        self.__hazards = config["bombs"] + config["rupoors"]
-        self.__size = config["width"] * config["height"]
         self.__price = config["price"]
         self.__board = Board(config["width"], config["height"], config["bombs"], config["rupoors"])
+    
+    def reset(self):
+        self.__state = PlayState.INITIAL_STATE
+        width, height = self.__board.get_shape()
+        bombs, rupoors = self.__board.get_hazards()
+        self.__score = 0
+        self.__dug_up = 0
+        self.__board = Board(width, height, bombs, rupoors)
 
     def play(self):
+        if (self.__state != PlayState.INITIAL_STATE):
+            raise GameAlreadyStartedError("Some holes have been previously dug up")
         self.execute_play_strategy()
         if self.__state == PlayState.VICTORY:
             return True
         elif self.__state == PlayState.FAILED:
             return False
         else:
-            raise UnfinishedGameException("Strategy finished without winning or losing")
+            raise UnfinishedGameError("Strategy finished without winning or losing")
 
     def dig(self,x,y):
-        if (self.__state != PlayState.MAKE_MOVE):
-            raise GameIsOverException("Game already finished")
+        if (self.__state == PlayState.VICTORY or  self.__state == PlayState.FAILED):
+            raise GameIsOverError("Game already finished")
+        previous_state = self.__board.cell_state(x,y)
         item = self.__board.dig(x,y)
+        # Dug up only increases if we dig up treasure and we didn't already dug up that cell
         if item != Item.RUPOOR or item != Item.RUPOOR:
-            self.__dug_up += 1
+            if previous_state == CellState.COVERED:
+                self.__dug_up += 1
         if item == Item.BOMB:
             self.__state = PlayState.FAILED
         else:
-            self.__score = max(0, self.__score + int(item))
+            # Only increase score if we didn't previously dug up that item
+            if previous_state == CellState.COVERED:
+                self.__score = max(0, self.__score + int(item))
             self.__state = PlayState.MAKE_MOVE
-            if (self.__size - self.__hazards) == self.__dug_up:
+            width, height = self.__board.get_shape()
+            bombs,rupoors = self.__board.get_hazards()
+            if ((width*height)-(bombs+rupoors)) == self.__dug_up:
                 self.__state = PlayState.VICTORY
         return item
     
