@@ -5,7 +5,7 @@ PGTD mimics the old and almost impossible to find PGMS (Programmer's Minesweeper
 In this case we are implementing Thrill Digger, an incomplete information approach to minesweeper presented as a minigame in [The Legend of Zelda Skyward Sword](https://zelda.fandom.com/wiki/Thrill_Digger). The main difference from Thrill Digger and Minesweeper is that while in the later the goal is to clear the board without hitting any mine, in Thrill Digger the goal is to maximize the score regardless of winning or losing. There are additional rewards in the game for clearing each mode but since the information in Thrill Digger is incomplete, is even more luck dependant than the original Minesweeper.
 
 ## Installation
-You can run ```pip install pgtd`` to install the module. No additional dependencies are required.
+You can run ``pip install pgtd`` to install the module. No additional dependencies are required.
 
 ## Rules and Hints
 
